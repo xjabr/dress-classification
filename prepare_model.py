@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 import random
 
+
 def create_model():
     model = keras.Sequential([
         keras.layers.Flatten(input_shape=(28, 28)),
@@ -17,10 +18,12 @@ def create_model():
 
     return model
 
+
 def fit_model(model, images, labels, epochs):
     model.fit(images, labels, epochs=epochs)
 
-def predict(model, images, labels, class_names):
+
+def random_predict(model, images, labels, class_names):
     """
     Generate a random index from 0 to N-1 of images' array and prelev
     image from the index generated and start the predict, when it is done
@@ -45,3 +48,12 @@ def predict(model, images, labels, class_names):
     plt.imshow(images[random_index])
 
     plt.show()
+
+
+def predictions(model, images, labels, class_names):
+    predictions_img = model.predict(images)
+
+    # show first 25
+    for i in range(25):
+        print('Predicted Label: %s\nReal Label: %s\nIndex: %d\n___________________________\n'
+            % ( class_names[np.argmax(predictions_img[i])], class_names[labels[i]], i))
